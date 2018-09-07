@@ -1,0 +1,4 @@
+dependencies:
+  - name: dep-chart-2
+    version: 0.1.0
+    repository: '@zlosure-dev-1-charts'

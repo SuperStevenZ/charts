@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: gcr.io/zlosure-dev-1/dep-chart
   tag: master
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   type: ClusterIP

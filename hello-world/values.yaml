@@ -6,8 +6,8 @@ replicaCount: 1
 
 image:
   repository: gcr.io/zlosure-dev-1/hello-world
-  tag: stable
-  pullPolicy: IfNotPresent
+  tag: master
+  pullPolicy: Always
 
 service:
   type: ClusterIP

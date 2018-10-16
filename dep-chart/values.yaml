@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: gcr.io/zlosure-dev-1/dep-chart
-  tag: stable
+  tag: master
   pullPolicy: IfNotPresent
 
 service:

@@ -2,3 +2,6 @@ dependencies:
   - name: dep-chart
     version: 0.1.0
     repository: '@invoker-a-demo-charts'
+  - name: dep-chart-3
+    version: 0.1.0
+    repository: '@invoker-a-demo-charts'

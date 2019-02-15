@@ -1,4 +1,4 @@
 dependencies:
   - name: dep-chart-2
     version: 0.1.0
-    repository: '@invoker-demo-charts'
+    repository: '@invoker-a-demo-charts'

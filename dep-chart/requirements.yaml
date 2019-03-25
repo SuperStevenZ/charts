@@ -1,4 +1,4 @@
 dependencies:
   - name: dep-chart-2
     version: 0.1.0
-    repository: '@invoker-a-demo-charts'
+    repository: '@zlosure-dev-3-charts'

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app.kubernetes.io/name: {{ include "hotpot.name" . }}
+    helm.sh/chart: {{ include "hotpot.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.nreplPort }}
+      protocol: TCP
+      name: nrepl
+  selector:
+    app.kubernetes.io/name: {{ include "hotpot.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

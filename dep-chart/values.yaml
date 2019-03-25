@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: gcr.io/invoker-a-demo/dep-chart
+  repository: gcr.io/zlosure-dev-3/dep-chart
   tag: master
   pullPolicy: Always
 

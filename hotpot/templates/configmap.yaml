@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Chart.Name }}
+data:
+  aeron-media-driver.properties: |-
+    aeron.dir=/dev/shm/aeron-dir
+    aeron.dir.delete.on.start=true
+    aeron.mtu.length=16384
+    aeron.threading.mode=DEDICATED

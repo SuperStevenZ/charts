@@ -27,3 +27,10 @@ spec:
             - name: nrepl
               containerPort: {{ .Values.service.nreplPort }}
               protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Chart.Name }}

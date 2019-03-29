@@ -27,9 +27,14 @@ spec:
             - name: nrepl
               containerPort: {{ .Values.service.nreplPort }}
               protocol: TCP
+          env:
+            - name: AERON_CONFIG_URI
+              value: '/etc/config/aeron-media-driver.properties'
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/config
+              mountPath: '/etc/config'
       volumes:
         - name: config-volume
           configMap:

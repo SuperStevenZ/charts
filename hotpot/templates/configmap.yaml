@@ -7,4 +7,5 @@ data:
     aeron.dir=/dev/shm/aeron-dir
     aeron.dir.delete.on.start=true
     aeron.mtu.length=16384
+    aeron.print.configuration=true
     aeron.threading.mode=DEDICATED

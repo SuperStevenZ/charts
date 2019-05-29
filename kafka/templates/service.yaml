@@ -4,6 +4,7 @@ metadata:
   name: {{ .Chart.Name }}
   labels:
     app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,3 +13,4 @@ spec:
       name: kafka
   selector:
     app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}

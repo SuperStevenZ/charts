@@ -5,15 +5,18 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
         app: {{ .Chart.Name }}
+        release: {{ .Release.Name }}
     spec:
       containers:
       - name: {{ .Chart.Name }}
@@ -25,5 +28,5 @@ spec:
           - name: KAFKA_LISTENERS
             value: PLAINTEXT://:9092
         ports:
-          - containerPort: {{ .Values.service.kafkaPort }}
+          - containerPort: 9092
             name: kafka

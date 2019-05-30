@@ -8,6 +8,7 @@ metadata:
     release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ .Chart.Name }}
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
@@ -27,11 +28,18 @@ spec:
             value: zookeeper:2181
           - name: KAFKA_LISTENERS
             value: PLAINTEXT://:9092
+          # https://stackoverflow.com/a/54963334/11438506
+          - name: KAFKA_ADVERTISED_LISTENERS
+            value: PLAINTEXT://$(POD_NAME).{{ .Chart.Name }}.{{ .Release.Namespace }}.svc.cluster.local:9092
           - name: KAFKA_CREATE_TOPICS
             value: "test:1:1"
           # https://github.com/wurstmeister/kafka-docker/issues/122
           - name: KAFKA_PORT
             value: "9092"
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
         ports:
           - containerPort: {{ .Values.service.kafkaPort }}
             name: kafka

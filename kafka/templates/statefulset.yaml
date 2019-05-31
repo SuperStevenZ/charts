@@ -28,18 +28,19 @@ spec:
             value: zookeeper:2181
           - name: KAFKA_LISTENERS
             value: PLAINTEXT://:9092
-          # https://stackoverflow.com/a/54963334/11438506
-          - name: KAFKA_ADVERTISED_LISTENERS
-            value: PLAINTEXT://$(POD_NAME).{{ .Chart.Name }}.{{ .Release.Namespace }}.svc.cluster.local:9092
-          - name: KAFKA_CREATE_TOPICS
-            value: "test:1:1"
-          # https://github.com/wurstmeister/kafka-docker/issues/122
-          - name: KAFKA_PORT
-            value: "9092"
+          # https://stackoverflow.com/a/49583616/11438506
           - name: POD_NAME
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name
+          # https://stackoverflow.com/a/54963334/11438506
+          - name: KAFKA_ADVERTISED_LISTENERS
+            value: PLAINTEXT://$(POD_NAME).{{ .Chart.Name }}.{{ .Release.Namespace }}.svc.cluster.local:9092
+          - name: KAFKA_CREATE_TOPICS
+            value: "test:2:3"
+          # https://github.com/wurstmeister/kafka-docker/issues/122
+          - name: KAFKA_PORT
+            value: "9092"
         ports:
           - containerPort: {{ .Values.service.kafkaPort }}
             name: kafka

@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Chart.Name }}-connect"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: "{{ .Chart.Name }}-connect"
+    release: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Chart.Name }}-connect"
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}-connect"
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: "{{ .Chart.Name }}-connect"
+        image: "confluentinc/cp-kafka-connect:5.2.1"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+          requests:
+            memory: 2Gi
+        ports:
+          - name: kafka-connect
+            containerPort: 8083
+            protocol: TCP
+        env:
+          # https://docs.confluent.io/current/connect/userguide.html
+          - name: CONNECT_BOOTSTRAP_SERVERS
+            value: PLAINTEXT://{{ .Chart.Name }}:9092
+          - name: CONNECT_GROUP_ID
+            value: "{{ .Chart.Name }}-connect"
+          - name: CONNECT_CONFIG_STORAGE_TOPIC
+            value: "{{ .Chart.Name }}-connect-config"
+          - name: CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR
+            value: "3"
+          - name: CONNECT_OFFSET_STORAGE_TOPIC
+            value: "{{ .Chart.Name }}-connect-offset"
+          - name: CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR
+            value: "3"
+          - name: CONNECT_OFFSET_STORAGE_PARTITIONS
+            value: "5"
+          - name: CONNECT_STATUS_STORAGE_TOPIC
+            value: "{{ .Chart.Name }}-connect-status"
+          - name: CONNECT_STATUS_STORAGE_REPLICATION_FACTOR
+            value: "3"
+          - name: CONNECT_STATUS_STORAGE_PARTITIONS
+            value: "5"
+          - name: CONNECT_KEY_CONVERTER
+            value: "org.apache.kafka.connect.json.JsonConverter"
+          - name: CONNECT_VALUE_CONVERTER
+            value: "org.apache.kafka.connect.json.JsonConverter"
+          - name: CONNECT_INTERNAL_KEY_CONVERTER
+            value: "org.apache.kafka.connect.json.JsonConverter"
+          - name: CONNECT_INTERNAL_VALUE_CONVERTER
+            value: "org.apache.kafka.connect.json.JsonConverter"
+          - name: CONNECT_REST_ADVERTISED_HOST_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: CONNECT_PLUGIN_PATH
+            value: "/usr/share/java"

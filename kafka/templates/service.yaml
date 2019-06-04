@@ -14,3 +14,19 @@ spec:
   selector:
     app: {{ .Chart.Name }}
     release: {{ .Release.Name }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-connect
+  labels:
+    app: {{ .Chart.Name }}-connect
+    release: {{ .Release.Name }}
+spec:
+  ports:
+    - name: kafka-connect
+      port: 8083
+  selector:
+    app: {{ .Chart.Name }}-connect
+    release: {{ .Release.Name }}

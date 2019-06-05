@@ -1,4 +1,4 @@
 dependencies:
   - name: kafka
-    version: 0.1.16
-    repository: '@zlosure-dev-5-charts'
+    version: 0.1.25
+    repository: '@clozure-dev-2-charts'

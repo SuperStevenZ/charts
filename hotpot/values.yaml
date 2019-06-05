@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: gcr.io/zlosure-dev-5/hotpot
+  repository: gcr.io/clozure-dev-2/hotpot
   tag: master
   pullPolicy: Always
 

@@ -18,10 +18,27 @@ spec:
         app: "{{ .Chart.Name }}-connect"
         release: {{ .Release.Name }}
     spec:
+      volumes:
+        - name: twitter-connect
+          emptyDir: {}
+      initContainers:
+        - args:
+          - apk add curl && curl -OL https://www.dropbox.com/s/caaqjdh6frl2o57/kafka-connect-twitter.tar.gz && tar -zxf kafka-connect-twitter.tar.gz -C .
+          command:
+          - /bin/sh
+          - -c
+          name: download-twitter-connect
+          image: alpine
+          volumeMounts:
+             - name: twitter-connect
+               mountPath: "/kafka-connect-twitter"
       containers:
       - name: "{{ .Chart.Name }}-connect"
         image: "confluentinc/cp-kafka-connect:5.2.1"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+          - name: twitter-connect
+            mountPath: "/usr/share/java/kafka-connect-twitter"
         resources:
           requests:
             memory: 2Gi

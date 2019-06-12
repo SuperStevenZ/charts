@@ -41,6 +41,8 @@ spec:
           # https://github.com/wurstmeister/kafka-docker/issues/122
           - name: KAFKA_PORT
             value: "9092"
+          - name: KAFKA_LOG_RETENTION_MINUTES
+            value: "5"
         ports:
           - containerPort: {{ .Values.service.kafkaPort }}
             name: kafka
